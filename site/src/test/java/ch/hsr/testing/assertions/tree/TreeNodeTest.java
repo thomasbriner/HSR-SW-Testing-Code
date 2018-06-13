@@ -32,10 +32,7 @@ class TreeNodeTest {
     public void compareUsingCustomMatcher() {
         TreeNode actual = createTree1();
         TreeNode expected = createTree2();
-        
-        // TODO: Implement this
-        Assertions.fail("Implement Testcase");
-        // MatcherAssert.assertThat(actual, TreeNodeMatcher.isEqualToTreeNode(expected));
+        MatcherAssert.assertThat(actual, TreeNodeMatcher.isEqualToTreeNode(expected));
     }
 
 
@@ -59,5 +56,48 @@ class TreeNodeTest {
         TreeNode root = new TreeNode(inner1, inner2, 60);
         return root;
     }
+
+    public static class TreeNodeMatcher
+            extends TypeSafeMatcher<TreeNode> {
+
+        private final TreeNode expected;
+
+        TreeNodeMatcher(TreeNode expected) {
+            this.expected = expected;
+        }
+
+        @Override
+        protected boolean matchesSafely(TreeNode actual) {
+            return isEqualRecursive(actual, expected);
+        }
+
+        private boolean isEqualRecursive(TreeNode t1, TreeNode t2) {
+            boolean valueIsEqual = t1.getValue() == t2.getValue();
+            boolean leftIsEqual = (t1.getLeft() == null) == (t2.getLeft() == null);
+            boolean rightIsEqual = (t1.getRight() == null) == (t2.getRight() == null);
+
+            if (t1.getLeft() != null && t2.getLeft() != null) {
+                leftIsEqual = isEqualRecursive(t1.getLeft(), t2.getLeft());
+            }
+            if (t1.getRight() != null && t2.getRight() != null) {
+                rightIsEqual = isEqualRecursive(t1.getRight(), t2.getRight());
+            }
+
+            return valueIsEqual && leftIsEqual && rightIsEqual;
+        }
+
+        @Override
+        public void describeTo(Description description) {
+            // TODO: implement
+            description.appendText("<" + expected.toString() + ">");
+        }
+
+        @Factory
+        static Matcher<TreeNode> isEqualToTreeNode(TreeNode expected) {
+            return new TreeNodeMatcher(expected);
+        }
+
+    }
+
 
 }
