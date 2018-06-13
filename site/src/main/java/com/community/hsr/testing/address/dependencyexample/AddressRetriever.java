@@ -3,6 +3,7 @@ package com.community.hsr.testing.address.dependencyexample;
 
 import com.community.hsr.testing.address.api.Address;
 import com.community.hsr.testing.address.dependencyexample.api.AuthenticationInformation;
+import com.community.hsr.testing.address.dependencyexample.api.HttpService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -10,20 +11,28 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 
 public class AddressRetriever {
-    private final HttpService httpService;
+    private HttpService httpService;
 
-    public AddressRetriever() {
-        httpService = new HttpService();
+    public AddressRetriever(HttpService httpService) {
+        this.httpService = httpService;
     }
 
-    public Address retrieve(double latitude, double longitude, AuthenticationInformation authenticationInformation)
-            throws IOException, ParseException {
+    public Address retrieve(double latitude, double longitude, AuthenticationInformation authenticationInformation) throws AddressRetrieverException {
         String parms = String.format("lat=%.6f&lon=%.6f", latitude, longitude);
-        String response = httpService.get(
-                "http://open.mapquestapi.com/nominatim/v1/reverse?format=json&"
-                        + parms, authenticationInformation);
+        String response = null;
+        JSONObject obj;
+        try {
+            response = httpService.get(
+                    "http://open.mapquestapi.com/nominatim/v1/reverse?format=json&"
+                            + parms, authenticationInformation);
 
-        JSONObject obj = (JSONObject) new JSONParser().parse(response);
+            obj = (JSONObject) new JSONParser().parse(response);
+        } catch (IOException e) {
+            throw new AddressRetrieverException("Received Exception from HttpService", e);
+        } catch (ParseException e) {
+            throw new AddressRetrieverException("Could not parse JSON from HttpService", e);
+        }
+
 
         JSONObject address = (JSONObject) obj.get("address");
         String country = (String) address.get("country_code");

@@ -6,9 +6,10 @@
  * We make no guarantees that this code is fit for any purpose. 
  * Visit http://www.pragmaticprogrammer.com/titles/utj2 for more book information.
 ***/
-package com.community.hsr.testing.address.dependencyexample;
+package com.community.hsr.testing.address.dependencyexample.impl;
 
 import com.community.hsr.testing.address.dependencyexample.api.AuthenticationInformation;
+import com.community.hsr.testing.address.dependencyexample.api.HttpService;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -18,15 +19,11 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 
-public class HttpService {
+public class HttpServiceImpl implements HttpService {
 
    public String get(String url, AuthenticationInformation authenticationInformation) throws IOException {
       CloseableHttpClient client = HttpClients.createDefault();
       HttpGet request = new HttpGet(url);
-      return executeRequest(client, request);
-   }
-
-   String executeRequest(CloseableHttpClient client, HttpGet request) throws IOException {
       CloseableHttpResponse response = client.execute(request);
       try {
          HttpEntity entity = response.getEntity();
