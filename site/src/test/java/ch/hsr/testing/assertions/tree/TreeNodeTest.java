@@ -88,7 +88,6 @@ class TreeNodeTest {
 
         @Override
         public void describeTo(Description description) {
-            // TODO: implement
             description.appendText("<" + expected.toString() + ">");
         }
 
