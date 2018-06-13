@@ -50,29 +50,42 @@ public class ShippingAddressSelectorTest {
                 .assertDefaultAddressIsSelected();
     }
 
+
     @Test
     public void shippingAddressIsChosenIfExists() {
-        // TODO: Implement this
-        Assertions.fail("Implement Testcase");
+        test()
+                .setShippingAddress()
+                .run()
+                .assertAddressIsFound()
+                .assertShippingAddressIsSelected();
     }
 
 
     @Test
     public void unapprovedAddressIsTakenIfNotRestrictedToApprovedAddresses() throws Exception {
-        // TODO: Implement this
-        Assertions.fail("Implement Testcase");
+        test()
+                .addUnapprovedDefaultAddress()
+                .run()
+                .assertUnapprovedDefaultAddressIsTaken();
     }
 
     @Test
     public void noAddressIsSelectedIfRestrictedToApprovedAddressesButNoneExists() throws Exception {
-        // TODO: Implement this
-        Assertions.fail("Implement Testcase");
+        testWithoutPrefilledAddresses()
+                .addUnapprovedDefaultAddress()
+                .useOnlyApprovedAddresses()
+                .run()
+                .assertNoAddressIsTaken();
     }
 
     @Test
     public void newestAddressVersionIsTakenIfMultipleVersionsExist() throws Exception {
-        // TODO: Implement this
-        Assertions.fail("Implement Testcase");
+        test()
+                .addApprovedDefaultAddress()
+                .addNewApprovedDefaultAddress()
+                .useOnlyApprovedAddresses()
+                .run()
+                .assertNewApprovedDefaultAddressIsTaken();
     }
 
     @Test
@@ -109,9 +122,15 @@ public class ShippingAddressSelectorTest {
     }
 
 
+
     private TestBuilder test() {
-        return new TestBuilder();
+        return new TestBuilder(true);
     }
+
+    private TestBuilder testWithoutPrefilledAddresses() {
+        return new TestBuilder(false);
+    }
+
 
     private static class TestBuilder {
 
@@ -119,10 +138,14 @@ public class ShippingAddressSelectorTest {
         private final CustomerForShipping customer;
         private boolean hasToBeApproved;
 
-        private TestBuilder() {
+        public TestBuilder(boolean usePrefilledAddresses) {
             shippingAddressSelector = new ShippingAddressSelector();
             AddressHistoryChain defaultAddressChain;
-            defaultAddressChain = new AddressHistoryChain(new AddressBuilder().city(DEFAULT_CITY).build());
+            if (usePrefilledAddresses) {
+                defaultAddressChain = new AddressHistoryChain(new AddressBuilder().city(DEFAULT_CITY).build());
+            } else {
+                defaultAddressChain = new AddressHistoryChain();
+            }
             customer = new CustomerForShipping(defaultAddressChain);
             hasToBeApproved = false;
         }
@@ -166,6 +189,14 @@ public class ShippingAddressSelectorTest {
             return this;
         }
 
+        public TestBuilder addNewApprovedDefaultAddress() {
+            customer.getDefaultAddress().addAddress(new AddressBuilder()
+                    .city(NEW_APPROVED_DEFAULT_CITY)
+                    .approved(true)
+                    .build());
+            return this;
+        }
+
         private TestBuilder useOnlyApprovedAddresses() {
             hasToBeApproved = true;
             return this;
@@ -203,8 +234,29 @@ public class ShippingAddressSelectorTest {
             return this;
         }
 
+        public TestResult assertShippingAddressIsSelected() {
+            assertAddressIsFound();
+            assertThat(selectedAddress.get().getCity(), is(SHIPPING_CITY));
+            return this;
+        }
+
         private TestResult assertApprovedDefaultAddressIsTaken() {
             assertThat(selectedAddress.get().getCity(), is(APPROVED_DEFAULT_CITY));
+            return this;
+        }
+
+        public TestResult assertUnapprovedDefaultAddressIsTaken() {
+            assertThat(selectedAddress.get().getCity(), is(UNAPPROVED_DEFAULT_CITY));
+            return this;
+        }
+
+        public TestResult assertNoAddressIsTaken() {
+            assertThat(selectedAddress.isPresent(), is(false));
+            return this;
+        }
+
+        public TestResult assertNewApprovedDefaultAddressIsTaken() {
+            assertThat(selectedAddress.get().getCity(), is(NEW_APPROVED_DEFAULT_CITY));
             return this;
         }
 
