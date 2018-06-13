@@ -67,14 +67,14 @@ public class HelloWorldHeatClinic implements Constants {
 
 
         // jump to the green ghost sauce detail page
+        WebElement sauce = driver.findElement(By.xpath("//a[div/img[contains(@src,'Green-Ghost')]]"));
+        System.out.println(sauce.getText());
+        sauce.click();
+        MatcherAssert.assertThat(driver.getTitle(), Matchers.containsString("Green Ghost"));
 
 
-        // and check the price of the green ghost sauce: should be $11.99
-
-        // TODO: Implement this
-        Assertions.fail("Implement Testcase");
-
-
+        // and check the price of the green ghost sauce: should be $9.99
+        String price = driver.findElement(By.className("price-new")).getText();
+        MatcherAssert.assertThat(price, Matchers.is("$9.99"));
     }
-
 }

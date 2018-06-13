@@ -10,7 +10,6 @@ package ch.testing.selenium.helloworld;
 import ch.testing.selenium.weekenddiscount.Constants;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -63,8 +62,11 @@ public class HelloWorldGoogleExample implements Constants {
 
     @Test
     public void changeLanguageToFrench() {
-        // TODO: Implement this
-        Assertions.fail("Implement Testcase");
+        driver.get("http://www.google.com");
+        WebElement french = driver.findElement(By.partialLinkText("Fran"));
 
+        french.click();
+
+        MatcherAssert.assertThat(driver.getPageSource(), Matchers.containsString("disponible en"));
     }
 }
