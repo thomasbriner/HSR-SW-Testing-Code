@@ -2,7 +2,7 @@ package ch.hsr.testing.unittest.mocking;
 
 import ch.hsr.testing.unittest.testbuilderpattern.Address;
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class AddressRetrieverTestBadExample {
 
