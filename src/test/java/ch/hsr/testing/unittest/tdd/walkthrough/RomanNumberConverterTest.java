@@ -1,33 +1,31 @@
 package ch.hsr.testing.unittest.tdd.walkthrough;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.Arrays;
+import java.util.List;
 
 class RomanNumberConverterTest {
 
-    @Test
-    void convert1ToI() {
-        Assertions.assertEquals("I", RomanNumberConverter.arabic2Roman(1));
+    private static List<Arguments> createInput() {
+        return Arrays.asList(
+                Arguments.of(1, "I"),
+                Arguments.of(2, "II"),
+                Arguments.of(3, "III"),
+                Arguments.of(5, "V"),
+                Arguments.of(7, "VII"),
+                Arguments.of(10, "X"),
+                Arguments.of(12, "XII"),
+                Arguments.of(15, "XV")
+        );
     }
 
-    @Test
-    void convert2ToII() {
-        Assertions.assertEquals("II", RomanNumberConverter.arabic2Roman(2));
+    @ParameterizedTest(name = "{index}: {0} -> {1}")
+    @MethodSource("createInput")
+    void convertToRoman(int arabicNumber, String romanNumber) {
+        Assertions.assertEquals(romanNumber, RomanNumberConverter.arabic2Roman(arabicNumber));
     }
-
-    @Test
-    void convert3ToIII() {
-        Assertions.assertEquals("III", RomanNumberConverter.arabic2Roman(3));
-    }
-
-    @Test
-    void convert5ToV() {
-        Assertions.assertEquals("V", RomanNumberConverter.arabic2Roman(5));
-    }
-
-    @Test
-    void convert7ToVII() {
-        Assertions.assertEquals("VII", RomanNumberConverter.arabic2Roman(7));
-    }
-
 }
