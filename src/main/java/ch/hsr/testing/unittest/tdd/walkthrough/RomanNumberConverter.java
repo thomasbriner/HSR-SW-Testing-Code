@@ -13,13 +13,15 @@ public class RomanNumberConverter {
     );
 
     public static String arabic2Roman(int arabicNumber) {
-        int index = getHighestFigureSmallerThan(arabicNumber);
-        String roman = "";
-        for (int i = 0; i < arabicNumber; i = i + romanFigures.get(index).getArabicNumber()) {
-            roman += romanFigures.get(index).toString();
+        if (arabicNumber == 0){
+            return "";
         }
-        return roman;
+        int index = getHighestFigureSmallerThan(arabicNumber);
+        String roman = romanFigures.get(index).toString();
+        int remainder = arabicNumber - romanFigures.get(index).getArabicNumber();
+        return roman + arabic2Roman(remainder);
     }
+
 
     private static int getHighestFigureSmallerThan(int arabicNumber) {
         for (int i = 0; i < romanFigures.size(); i++) {
