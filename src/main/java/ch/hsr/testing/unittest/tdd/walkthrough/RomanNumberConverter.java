@@ -2,10 +2,10 @@ package ch.hsr.testing.unittest.tdd.walkthrough;
 
 public class RomanNumberConverter {
     public static String arabic2Roman(int arabic) {
-        if (arabic > 1){
-            return "II";
-        } else {
-            return "I";
+        String roman = "";
+        for (int i = 0; i < arabic; i++) {
+            roman += "I";
         }
+        return roman;
     }
 }
