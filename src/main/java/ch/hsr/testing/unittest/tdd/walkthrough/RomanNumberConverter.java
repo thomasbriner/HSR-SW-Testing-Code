@@ -13,12 +13,21 @@ public class RomanNumberConverter {
     );
 
     public static String arabic2Roman(int arabicNumber) {
-        if (arabicNumber == 0){
+        if (arabicNumber == 0) {
             return "";
         }
-        int index = getHighestFigureSmallerThan(arabicNumber);
-        String roman = romanFigures.get(index).toString();
-        int remainder = arabicNumber - romanFigures.get(index).getArabicNumber();
+        int indexHighestFigureSmaller = getHighestFigureSmallerThan(arabicNumber);
+        RomanFigure highestFigureSmaller = romanFigures.get(indexHighestFigureSmaller);
+        RomanFigure nextFigureGreater = romanFigures.get(indexHighestFigureSmaller + 1);
+        String roman;
+        int remainder;
+        if (arabicNumber >= nextFigureGreater.getArabicNumber() - highestFigureSmaller.getArabicNumber()) {
+            roman = highestFigureSmaller.toString() + nextFigureGreater.toString();
+            remainder = arabicNumber - (nextFigureGreater.getArabicNumber() - highestFigureSmaller.getArabicNumber());
+        } else {
+            roman = highestFigureSmaller.toString();
+            remainder = arabicNumber - highestFigureSmaller.getArabicNumber();
+        }
         return roman + arabic2Roman(remainder);
     }
 
