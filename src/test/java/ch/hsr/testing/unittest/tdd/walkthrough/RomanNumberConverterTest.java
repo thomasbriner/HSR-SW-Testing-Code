@@ -25,5 +25,9 @@ class RomanNumberConverterTest {
         Assertions.assertEquals("V", RomanNumberConverter.arabic2Roman(5));
     }
 
+    @Test
+    void convert7ToVII() {
+        Assertions.assertEquals("VII", RomanNumberConverter.arabic2Roman(7));
+    }
 
 }
