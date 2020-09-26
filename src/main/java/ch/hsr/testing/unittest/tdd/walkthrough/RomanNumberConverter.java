@@ -19,11 +19,14 @@ public class RomanNumberConverter {
         int indexHighestFigureSmaller = getHighestFigureSmallerThan(arabicNumber);
         RomanFigure highestFigureSmaller = romanFigures.get(indexHighestFigureSmaller);
         RomanFigure nextFigureGreater = romanFigures.get(indexHighestFigureSmaller + 1);
+        RomanFigure figureForPrefix = romanFigures.get(indexHighestFigureSmaller).isUseAsPrefixForSubtration() ?
+                romanFigures.get(indexHighestFigureSmaller) :
+                romanFigures.get(indexHighestFigureSmaller - 1);
         String roman;
         int remainder;
-        if (arabicNumber >= nextFigureGreater.getArabicNumber() - highestFigureSmaller.getArabicNumber()) {
-            roman = highestFigureSmaller.toString() + nextFigureGreater.toString();
-            remainder = arabicNumber - (nextFigureGreater.getArabicNumber() - highestFigureSmaller.getArabicNumber());
+        if (arabicNumber >= nextFigureGreater.getArabicNumber() - figureForPrefix.getArabicNumber()) {
+            roman = figureForPrefix.toString() + nextFigureGreater.toString();
+            remainder = arabicNumber - (nextFigureGreater.getArabicNumber() - figureForPrefix.getArabicNumber());
         } else {
             roman = highestFigureSmaller.toString();
             remainder = arabicNumber - highestFigureSmaller.getArabicNumber();
@@ -44,18 +47,24 @@ public class RomanNumberConverter {
 
 
 enum RomanFigure {
-    I(1),
-    V(5),
-    X(10),
-    L(50);
+    I(1, true),
+    V(5, false),
+    X(10, true),
+    L(50, false);
 
     private int arabicNumber;
+    private boolean useAsPrefixForSubtration;
 
-    RomanFigure(int arabicNumber) {
+    RomanFigure(int arabicNumber, boolean useAsPrefixForSubtration) {
         this.arabicNumber = arabicNumber;
+        this.useAsPrefixForSubtration = useAsPrefixForSubtration;
     }
 
     public int getArabicNumber() {
         return arabicNumber;
+    }
+
+    public boolean isUseAsPrefixForSubtration() {
+        return useAsPrefixForSubtration;
     }
 }
