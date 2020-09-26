@@ -9,7 +9,10 @@ public class RomanNumberConverter {
             RomanFigure.I,
             RomanFigure.V,
             RomanFigure.X,
-            RomanFigure.L
+            RomanFigure.L,
+            RomanFigure.C,
+            RomanFigure.D,
+            RomanFigure.M
     );
 
     public static String arabic2Roman(int arabicNumber) {
@@ -50,7 +53,10 @@ enum RomanFigure {
     I(1, true),
     V(5, false),
     X(10, true),
-    L(50, false);
+    L(50, false),
+    C(100, true),
+    D(500, false),
+    M(1000, true);
 
     private int arabicNumber;
     private boolean useAsPrefixForSubtration;

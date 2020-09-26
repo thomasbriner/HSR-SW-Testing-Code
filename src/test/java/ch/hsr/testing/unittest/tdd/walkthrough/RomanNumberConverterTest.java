@@ -20,7 +20,9 @@ class RomanNumberConverterTest {
                 Arguments.of(7, "VII"),
                 Arguments.of(10, "X"),
                 Arguments.of(12, "XII"),
-                Arguments.of(15, "XV")
+                Arguments.of(15, "XV"),
+                Arguments.of(98, "XCVIII"),
+                Arguments.of(971, "CMLXXI")
         );
     }
 
