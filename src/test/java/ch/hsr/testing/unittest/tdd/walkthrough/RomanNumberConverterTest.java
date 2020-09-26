@@ -9,4 +9,10 @@ class RomanNumberConverterTest {
     void convert1ToI() {
         Assertions.assertEquals("I", RomanNumberConverter.arabic2Roman(1));
     }
+
+    @Test
+    void convert2ToII() {
+        Assertions.assertEquals("II", RomanNumberConverter.arabic2Roman(2));
+    }
+
 }
