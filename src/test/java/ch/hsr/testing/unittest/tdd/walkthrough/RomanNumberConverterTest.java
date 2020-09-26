@@ -15,4 +15,15 @@ class RomanNumberConverterTest {
         Assertions.assertEquals("II", RomanNumberConverter.arabic2Roman(2));
     }
 
+    @Test
+    void convert3ToIII() {
+        Assertions.assertEquals("III", RomanNumberConverter.arabic2Roman(3));
+    }
+
+    @Test
+    void convert5ToV() {
+        Assertions.assertEquals("V", RomanNumberConverter.arabic2Roman(5));
+    }
+
+
 }
