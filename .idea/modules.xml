@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hsr_sw_testing.iml" filepath="$PROJECT_DIR$/.idea/modules/hsr_sw_testing.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hsr_sw_testing.main.iml" filepath="$PROJECT_DIR$/.idea/modules/hsr_sw_testing.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hsr_sw_testing.test.iml" filepath="$PROJECT_DIR$/.idea/modules/hsr_sw_testing.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hsr-software-testing.iml" filepath="$PROJECT_DIR$/.idea/modules/hsr-software-testing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hsr-software-testing.main.iml" filepath="$PROJECT_DIR$/.idea/modules/hsr-software-testing.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hsr-software-testing.test.iml" filepath="$PROJECT_DIR$/.idea/modules/hsr-software-testing.test.iml" />
     </modules>
   </component>
 </project>
