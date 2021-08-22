@@ -8,7 +8,7 @@
 package ch.hsr.testing.systemtest.helloworld;
 
 import ch.hsr.testing.systemtest.weekenddiscount.Constants;
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -19,10 +19,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.concurrent.TimeUnit;
 
 /**
- * The Class HelloWorldGoogleExample. This class is provided as first example on
- * http://code.google.com/p/selenium/wiki/GettingStarted
+ * This class is a first example for running an automated system test against a website.
  */
-public class HelloWorldGoogleExample implements Constants {
+public class HelloWorldHsrWebPageExample implements Constants {
 
     private WebDriver driver;
 
@@ -39,15 +38,15 @@ public class HelloWorldGoogleExample implements Constants {
     }
 
     @Test
-    public void searchForWordCheese() {
-        // And now use this to visit Google
-        driver.get("http://www.google.com");
+    public void searchForMAS() {
+        // And now use this to visit the duckduckgo page
+        driver.get("https://www.ost.ch/de/");
 
         // Find the text input element by its name
-        WebElement element = driver.findElement(By.name("q"));
+        WebElement element = driver.findElement(By.name("tx_solr[q]"));
 
         // Enter something to search for
-        element.sendKeys("Cheese!");
+        element.sendKeys("MAS SE");
 
         // Now submit the form. WebDriver will find the form for us from the
         // element
@@ -55,13 +54,13 @@ public class HelloWorldGoogleExample implements Constants {
 
         // Check the title of the page
         System.out.println("Page title is: " + driver.getTitle());
+        Assertions.assertThat(driver.getPageSource()).contains("MAS Software Engineering");
     }
 
 
     @Test
-    public void changeLanguageToFrench() {
+    public void lookupPhoneNumber() {
         // TODO: Implement this
-        Assertions.fail("Implement Testcase");
-
+        org.junit.jupiter.api.Assertions.fail("Implement Testcase");
     }
 }
