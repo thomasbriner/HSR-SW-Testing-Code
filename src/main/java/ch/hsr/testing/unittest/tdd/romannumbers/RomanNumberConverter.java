@@ -10,7 +10,15 @@ public class RomanNumberConverter {
             new RomanNumber("IV", 4),
             new RomanNumber("V", 5),
             new RomanNumber("IX", 9),
-            new RomanNumber("X", 10)
+            new RomanNumber("X", 10),
+            new RomanNumber("XL", 40),
+            new RomanNumber("L", 50),
+            new RomanNumber("XC", 90),
+            new RomanNumber("C", 100),
+            new RomanNumber("CD", 400),
+            new RomanNumber("D", 500),
+            new RomanNumber("CM", 900),
+            new RomanNumber("M", 1000)
     };
 
 
