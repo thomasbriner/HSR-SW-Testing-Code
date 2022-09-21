@@ -23,7 +23,9 @@ class FizzBuzzTest {
                 Arguments.of(4, "", "normal number"),
                 Arguments.of(6, FizzBuzz.FIZZ, "dreierreihe"),
                 Arguments.of(10, FizzBuzz.BUZZ, "fünferreihe"),
-                Arguments.of(15, FizzBuzz.FIZZ + FizzBuzz.BUZZ, "fünfzehnerreihe")
+                Arguments.of(15, FizzBuzz.FIZZ + FizzBuzz.BUZZ, "fünfzehnerreihe"),
+                Arguments.of(45, FizzBuzz.FIZZ + FizzBuzz.BUZZ, "fünfzehnerreihe"),
+                Arguments.of(13, FizzBuzz.FIZZ, "drei drin")
 
         );
     }
