@@ -6,12 +6,13 @@ public class FizzBuzz {
     public static final String BUZZ = "BUZZ";
 
     public static String processNumber(int number) {
+        StringBuilder result = new StringBuilder();
         if (number % 3 == 0) {
-            return FIZZ;
-        } else if (number % 5 == 0) {
-            return BUZZ;
-        } else {
-            return "";
+            result.append(FIZZ);
         }
+        if (number % 5 == 0) {
+           result.append(BUZZ);
+        }
+        return result.toString();
     }
 }
