@@ -10,13 +10,18 @@ public class FizzBuzz {
         if (isFizz(number)) {
             result.append(FIZZ);
         }
-        if (number % 5 == 0) {
+        if (isBuzz(number)) {
             result.append(BUZZ);
         }
         return result.toString();
     }
 
+
     private static boolean isFizz(int number) {
         return number % 3 == 0 || Integer.toString(number).contains("3");
+    }
+
+    private static boolean isBuzz(int number) {
+        return number % 5 == 0 || Integer.toString(number).contains("5");
     }
 }
