@@ -7,11 +7,11 @@ public class FizzBuzz {
 
     public static String processNumber(int number) {
         StringBuilder result = new StringBuilder();
-        if (number % 3 == 0) {
+        if (number % 3 == 0 || Integer.toString(number).contains("3")) {
             result.append(FIZZ);
         }
         if (number % 5 == 0) {
-           result.append(BUZZ);
+            result.append(BUZZ);
         }
         return result.toString();
     }
