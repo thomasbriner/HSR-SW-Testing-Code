@@ -21,7 +21,9 @@ class FizzBuzzTest {
     public static Stream<Arguments> getTestInputData() {
         return Stream.of(
                 Arguments.of(4,"","normal number"),
-                Arguments.of(6,FizzBuzz.FIZZ,"dreierreihe")
+                Arguments.of(6,FizzBuzz.FIZZ,"dreierreihe"),
+                Arguments.of(10,FizzBuzz.BUZZ,"fünferreihe")
+
         );
     }
 
