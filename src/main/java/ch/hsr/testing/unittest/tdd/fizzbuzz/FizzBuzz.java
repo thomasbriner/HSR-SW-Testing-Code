@@ -8,6 +8,8 @@ public class FizzBuzz {
     public static String processNumber(int number) {
         if (number % 3 == 0) {
             return FIZZ;
+        } else if (number % 5 == 0) {
+            return BUZZ;
         } else {
             return "";
         }
