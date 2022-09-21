@@ -25,7 +25,8 @@ class FizzBuzzTest {
                 Arguments.of(10, FizzBuzz.BUZZ, "fünferreihe"),
                 Arguments.of(15, FizzBuzz.FIZZ + FizzBuzz.BUZZ, "fünfzehnerreihe"),
                 Arguments.of(45, FizzBuzz.FIZZ + FizzBuzz.BUZZ, "fünfzehnerreihe"),
-                Arguments.of(13, FizzBuzz.FIZZ, "drei drin")
+                Arguments.of(13, FizzBuzz.FIZZ, "drei drin"),
+                Arguments.of(51, FizzBuzz.BUZZ, "fünf drin")
 
         );
     }
