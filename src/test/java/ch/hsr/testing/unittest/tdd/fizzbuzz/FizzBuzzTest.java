@@ -10,9 +10,9 @@ import java.util.stream.Stream;
 class FizzBuzzTest {
 
 
-    @ParameterizedTest(name="Test {index}: {0} -> {1} ({2} ")
+    @ParameterizedTest(name = "Test {index}: {0} -> {1} ({2} ")
     @MethodSource("getTestInputData")
-    void testDataDriven(int input, String fizzbuzz, String reason){
+    void testDataDriven(int input, String fizzbuzz, String reason) {
         String actual = FizzBuzz.processNumber(input);
 
         Assertions.assertThat(actual).isEqualTo(fizzbuzz);
@@ -20,9 +20,10 @@ class FizzBuzzTest {
 
     public static Stream<Arguments> getTestInputData() {
         return Stream.of(
-                Arguments.of(4,"","normal number"),
-                Arguments.of(6,FizzBuzz.FIZZ,"dreierreihe"),
-                Arguments.of(10,FizzBuzz.BUZZ,"fünferreihe")
+                Arguments.of(4, "", "normal number"),
+                Arguments.of(6, FizzBuzz.FIZZ, "dreierreihe"),
+                Arguments.of(10, FizzBuzz.BUZZ, "fünferreihe"),
+                Arguments.of(15, FizzBuzz.FIZZ + FizzBuzz.BUZZ, "fünfzehnerreihe")
 
         );
     }
