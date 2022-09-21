@@ -7,12 +7,16 @@ public class FizzBuzz {
 
     public static String processNumber(int number) {
         StringBuilder result = new StringBuilder();
-        if (number % 3 == 0 || Integer.toString(number).contains("3")) {
+        if (isFizz(number)) {
             result.append(FIZZ);
         }
         if (number % 5 == 0) {
             result.append(BUZZ);
         }
         return result.toString();
+    }
+
+    private static boolean isFizz(int number) {
+        return number % 3 == 0 || Integer.toString(number).contains("3");
     }
 }
