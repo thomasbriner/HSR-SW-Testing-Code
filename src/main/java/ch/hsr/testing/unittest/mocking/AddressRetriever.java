@@ -2,10 +2,13 @@ package ch.hsr.testing.unittest.mocking;
 
 
 import ch.hsr.testing.unittest.testbuilderpattern.Address;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.IOException;
+import java.util.Formatter;
+import java.util.Locale;
 
 public class AddressRetriever {
     private final HttpService httpService = new HttpService();
@@ -16,14 +19,15 @@ public class AddressRetriever {
     }
 
     public Address retrieve(double latitude, double longitude) throws AddressRetrieverException {
-        String params = String.format("lat=%.6f&lon=%.6f", latitude, longitude);
+        String params = new Formatter(Locale.US).format("location=%.6f%s%.6f", latitude, "%2C",longitude).toString();
+        String url = "https://www.mapquestapi.com/geocoding/v1/reverse?key=" + apiKey
+                + "&outFormat=json&thumbMaps=false&format=json&" + params;
         try {
-            String response = httpService.get("http://open.mapquestapi.com/nominatim/v1/reverse.php?key=" + apiKey
-                    + "&format=json&" + params);
+            String response = httpService.get(url);
 
             JSONObject obj = (JSONObject) new JSONParser().parse(response);
-            JSONObject address = (JSONObject) obj.get("address");
-            return Address.fromJSON(address);
+            JSONObject location =  (JSONObject) ((JSONArray)((JSONObject)((JSONArray) obj.get("results")).get(0)).get("locations")).get(0);
+            return Address.fromJSONLocation(location);
 
         } catch (IOException e) {
             throw new AddressRetrieverException("Received Exception from HttpService", e);

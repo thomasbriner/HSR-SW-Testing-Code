@@ -56,14 +56,15 @@ public class Address {
     public boolean isApproved() {
         return approved;
     }
-
-    public static Address fromJSON(JSONObject address) {
-        String houseNumber = (String) address.get("house_number");
-        String road = (String) address.get("road");
-        String city = (String) address.get("city");
-        String state = (String) address.get("state");
-        String zip = (String) address.get("postcode");
-        return new Address(houseNumber, road, city, state, zip);
+    
+    public static Address fromJSONLocation(JSONObject location) {
+        String houseNumberAndstreet = (String) location.get("street");
+        String houseNumber = houseNumberAndstreet.substring(0, houseNumberAndstreet.indexOf(" "));
+        String street = houseNumberAndstreet.substring(houseNumberAndstreet.indexOf(" "));
+        String city = (String) location.get("adminArea5");
+        String state = (String) location.get("adminArea1");
+        String zip = (String) location.get("postalCode");
+        return new Address(houseNumber, street, city, state, zip);
     }
 
     @Override
