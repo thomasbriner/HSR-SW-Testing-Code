@@ -8,16 +8,16 @@
 package ch.hsr.testing.systemtest.helloworld;
 
 import ch.hsr.testing.systemtest.weekenddiscount.Constants;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.CapabilityType;
 
 import java.util.concurrent.TimeUnit;
 
@@ -25,41 +25,42 @@ import java.util.concurrent.TimeUnit;
  * The Class HelloWorldHeatClinic. This class can be used for first experiments
  * with selenium against the system under test.
  * <p>
- * Make sure the system under test is running! (Ant View --> site -->
- * jetty-demo-no-db)
+ * Make sure the system under test is running! (start with ./run-SUT-locally.sh)
  */
 public class HelloWorldHeatClinic implements Constants {
 
-    private WebDriver driver;
+	private WebDriver driver;
 
-    @BeforeEach
-    public void setup() {
-        System.setProperty("webdriver.chrome.driver", getChromeDriverPath());
-        driver = new ChromeDriver();
+	@BeforeEach
+	public void setup() {
 
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-    }
+		System.setProperty("webdriver.chrome.driver", getChromeDriverPath());
+		ChromeOptions options = new ChromeOptions();
+		options.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
+		driver = new ChromeDriver(options);
 
-    @AfterEach
-    public void tearDown() {
-        driver.close();
-    }
+		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+	}
 
-    @Test
-    public void testPriceOfSauceGreenGhost() throws InterruptedException {
+	@AfterEach
+	public void tearDown() {
+		driver.close();
+	}
 
-        driver.get("http://localhost:8080");
+	@Test
+	public void testPriceOfSauceGreenGhost() throws InterruptedException {
 
-
-        // check if the home page is loaded
-        MatcherAssert.assertThat("Should be home page of heat clinic", driver.getPageSource(),
-                Matchers.containsString("Hot Sauces"));
+		driver.get("http://localhost:8080");
 
 
-        // now go to "Hot Sauces"
-        WebElement navigation = driver.findElement(By.xpath("//div[@id='left-nav']"));
-        navigation.findElement(By.partialLinkText("HOT")).click();
-        MatcherAssert.assertThat(driver.getTitle(), Matchers.containsString("Hot Sauces"));
+		// check if the home page is loaded
+		Assertions.assertThat(driver.getPageSource()).contains("Hot Sauces");
+
+
+		// now go to "Hot Sauces"
+		WebElement navigation = driver.findElement(By.xpath("//div[@id='left-nav']"));
+		navigation.findElement(By.partialLinkText("HOT")).click();
+		Assertions.assertThat(driver.getTitle()).contains("Hot Sauces");
 
 
         // jump to the green ghost sauce detail page
@@ -71,6 +72,6 @@ public class HelloWorldHeatClinic implements Constants {
         Assertions.fail("Implement Testcase");
 
 
-    }
+	}
 
 }

@@ -21,9 +21,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.CapabilityType;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The Class HeatClinicAcceptanceTests. In this class the acceptance Tests for
@@ -40,9 +43,14 @@ public class WeekendDiscountAcceptanceTests implements Constants {
     private WebDriver driver;
 
     @BeforeEach
-    public void setup() throws IOException, InterruptedException {
+    public void setup() {
+
         System.setProperty("webdriver.chrome.driver", getChromeDriverPath());
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
+        driver = new ChromeDriver(options);
+
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         WebDriverKeeper.getInstance().setDriver(driver);
     }
 

@@ -61,6 +61,9 @@ public class HelloWorldHsrWebPageExample implements Constants {
     @Test
     public void lookupPhoneNumber() {
         // TODO: Implement this
+        // 1. Jump to "Kontakt"-Page
+        // 2. Assert that the page title contains "Kontakt"
+        // 3. Assert that the phone number '+41 58 257 41 11' is found on the page
         org.junit.jupiter.api.Assertions.fail("Implement Testcase");
     }
 }

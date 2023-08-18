@@ -17,6 +17,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.CapabilityType;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -30,31 +32,36 @@ import static org.hamcrest.core.Is.is;
  */
 public class WeekendDiscountTestWithoutPageObjects implements Constants {
 
-    private WebDriver driver;
+	private WebDriver driver;
 
-    @BeforeEach
-    public void setup() {
-        System.setProperty("webdriver.chrome.driver", getChromeDriverPath());
-        driver = new ChromeDriver();
-        DBUtil.setTestTime(DateFactory.createDate(2019, 6, 23, 0, 0, 0));
-    }
+	@BeforeEach
+	public void setup() {
 
-    @Test
-    public void testAddToCart() {
-        driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
-        driver.get(BASE_URL);
+		System.setProperty("webdriver.chrome.driver", getChromeDriverPath());
+		ChromeOptions options = new ChromeOptions();
+		options.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
+		driver = new ChromeDriver(options);
 
-        List<WebElement> nofItemsInCart = driver.findElements(By.className("cart-count-badge"));
-        MatcherAssert.assertThat("Should be 0 items in cart", nofItemsInCart.size(), is(0));
+		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 
-        WebElement navigation = driver.findElement(By.xpath("//div[@id='left-nav']"));
-        navigation.findElement(By.partialLinkText("HOT")).click();
+		DBUtil.setTestTime(DateFactory.createDate(2019, 6, 23, 0, 0, 0));
+	}
 
-        driver.findElement(By.xpath("//a[contains(@href,'day_of_the_dead_habanero_hot_sauce')]")).click();
+	@Test
+	public void testAddToCart() {
+		driver.get(BASE_URL);
 
-        driver.findElement(By.xpath("//button[contains(@class,'js-addToCart')]")).click();
+		List<WebElement> nofItemsInCart = driver.findElements(By.className("cart-count-badge"));
+		MatcherAssert.assertThat("Should be 0 items in cart", nofItemsInCart.size(), is(0));
 
-        WebElement itemsInCart = driver.findElement(By.className("cart-count-badge"));
-        MatcherAssert.assertThat("Should be 1 items in cart", itemsInCart.getText(), is("1"));
-    }
+		WebElement navigation = driver.findElement(By.xpath("//div[@id='left-nav']"));
+		navigation.findElement(By.partialLinkText("HOT")).click();
+
+		driver.findElement(By.xpath("//a[contains(@href,'day_of_the_dead_habanero_hot_sauce')]")).click();
+
+		driver.findElement(By.xpath("//button[contains(@class,'js-addToCart')]")).click();
+
+		WebElement itemsInCart = driver.findElement(By.className("cart-count-badge"));
+		MatcherAssert.assertThat("Should be 1 items in cart", itemsInCart.getText(), is("1"));
+	}
 }
