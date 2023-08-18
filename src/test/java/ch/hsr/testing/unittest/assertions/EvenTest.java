@@ -10,7 +10,11 @@ public class EvenTest {
     @Test
     public void evenNumber() {
         MatcherAssert.assertThat(2, isEven());
-        MatcherAssert.assertThat(3, isEven());
+    }
+
+    @Test
+    public void oddNumber() {
+        MatcherAssert.assertThat(3, Matchers.not(isEven()));
     }
 }
 

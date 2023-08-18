@@ -3,6 +3,7 @@ package ch.hsr.testing.unittest.assertions;
 import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 import org.junit.jupiter.api.Test;
 
@@ -12,9 +13,13 @@ import static ch.hsr.testing.unittest.assertions.EvenMatcher.isEven;
 public class DivisibleByTest {
 
     @Test
-    public void evenNumber() {
+    public void numberIsDivisible() {
         MatcherAssert.assertThat(16, isDivisibleBy(4));
-        MatcherAssert.assertThat(17, isDivisibleBy(4));
+    }
+
+    @Test
+    public void numberIsNotDivisible() {
+        MatcherAssert.assertThat(17, Matchers.not(isDivisibleBy(4)));
     }
 }
 

@@ -30,3 +30,6 @@ selenium-tests/build/*
 selenium-tests/temp/*
 
 .idea/workspace.xml
+/temp/
+/build/
+/.gradle/
