@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JupyterPersistentConnectionParameters">
+    <option name="moduleParameters">
+      <map>
+        <entry key="$USER_HOME$/ergon/dev/heinzelmaennli/code/hauptprojekt/devops/devops.iml">
+          <value>
+            <JupyterConnectionParameters>
+              <option name="managed" value="true" />
+              <option name="sdkHomePath" value="$USER_HOME$/opt/miniconda3/envs/heinzelmaennli-mvp/bin/python" />
+            </JupyterConnectionParameters>
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/ergon/dev/heinzelmaennli/code/playground.data-exploration/.idea/playground.data-exploration.iml">
+          <value>
+            <JupyterConnectionParameters>
+              <option name="managed" value="true" />
+              <option name="sdkHomePath" value="$USER_HOME$/opt/miniconda3/envs/heinzelmaennli-qna/bin/python3" />
+            </JupyterConnectionParameters>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

@@ -8,7 +8,8 @@
 package ch.hsr.testing.systemtest.helloworld;
 
 import ch.hsr.testing.systemtest.weekenddiscount.Constants;
-import org.assertj.core.api.Assertions;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -54,23 +55,23 @@ public class HelloWorldHeatClinic implements Constants {
 
 
 		// check if the home page is loaded
-		Assertions.assertThat(driver.getPageSource()).contains("Hot Sauces");
-
+		MatcherAssert.assertThat("Should be home page of heat clinic", driver.getPageSource(),
+				Matchers.containsString("Hot Sauces"));
 
 		// now go to "Hot Sauces"
 		WebElement navigation = driver.findElement(By.xpath("//div[@id='left-nav']"));
 		navigation.findElement(By.partialLinkText("HOT")).click();
-		Assertions.assertThat(driver.getTitle()).contains("Hot Sauces");
+		MatcherAssert.assertThat(driver.getTitle(), Matchers.containsString("Hot Sauces"));
 
+		// jump to the green ghost sauce detail page
+		WebElement sauce = driver.findElement(By.xpath("//a[div/img[contains(@src,'Green-Ghost')]]"));
+		System.out.println(sauce.getText());
+		sauce.click();
+		MatcherAssert.assertThat(driver.getTitle(), Matchers.containsString("Green Ghost"));
 
-        // jump to the green ghost sauce detail page
-
-
-        // and check the price of the green ghost sauce: should be $11.99
-
-        // TODO: Implement this
-        Assertions.fail("Implement Testcase");
-
+		// and check the price of the green ghost sauce: should be $9.99
+		String price = driver.findElement(By.className("price-new")).getText();
+		MatcherAssert.assertThat(price, Matchers.is("$9.99"));
 
 	}
 

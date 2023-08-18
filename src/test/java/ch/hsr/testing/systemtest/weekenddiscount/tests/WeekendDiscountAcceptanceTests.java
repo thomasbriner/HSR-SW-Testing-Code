@@ -24,7 +24,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -35,51 +34,51 @@ import java.util.concurrent.TimeUnit;
 @ExtendWith(ScreenshotOnFailureExtension.class)
 public class WeekendDiscountAcceptanceTests implements Constants {
 
-    private static final Log LOG = LogFactory
-            .getLog(WeekendDiscountAcceptanceTests.class);
+	private static final Log LOG = LogFactory
+			.getLog(WeekendDiscountAcceptanceTests.class);
 
-    public ScreenshotOnFailureExtension screenshot = new ScreenshotOnFailureExtension();
+	public ScreenshotOnFailureExtension screenshot = new ScreenshotOnFailureExtension();
 
-    private WebDriver driver;
+	private WebDriver driver;
 
-    @BeforeEach
-    public void setup() {
+	@BeforeEach
+	public void setup() {
 
-        System.setProperty("webdriver.chrome.driver", getChromeDriverPath());
-        ChromeOptions options = new ChromeOptions();
-        options.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
-        driver = new ChromeDriver(options);
+		System.setProperty("webdriver.chrome.driver", getChromeDriverPath());
+		ChromeOptions options = new ChromeOptions();
+		options.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
+		driver = new ChromeDriver(options);
 
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        WebDriverKeeper.getInstance().setDriver(driver);
-    }
+		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		WebDriverKeeper.getInstance().setDriver(driver);
+	}
 
-    @AfterEach
-    public void tearDown() {
-        driver.close();
-    }
+	@AfterEach
+	public void tearDown() {
+		driver.close();
+	}
 
-    @Test
-    public void testWeekendDiscountEnabled() {
+	@Test
+	public void testWeekendDiscountEnabled() {
 
-        Date within4thWeekend = DateFactory.createDate(2018, 6, 23, 0, 0, 0);
-        DBUtil.setTestTime(within4thWeekend);
+		Date within4thWeekend = DateFactory.createDate(2018, 6, 23, 0, 0, 0);
+		DBUtil.setTestTime(within4thWeekend);
 
-        // TODO: Implement this
-        Assertions.fail("Implement Testcase");
+		// TODO: Implement this
+		Assertions.fail("Implement Testcase");
 
 
-    }
+	}
 
-    @Test
-    public void testWeekendDiscountDisabled() {
+	@Test
+	public void testWeekendDiscountDisabled() {
 
-        Date after4thWeekend = DateFactory.createDate(2018, 6, 25, 0, 0, 0);
-        DBUtil.setTestTime(after4thWeekend);
+		Date after4thWeekend = DateFactory.createDate(2018, 6, 25, 0, 0, 0);
+		DBUtil.setTestTime(after4thWeekend);
 
-        // TODO: Implement this
-        Assertions.fail("Implement Testcase");
+		// TODO: Implement this
+		Assertions.fail("Implement Testcase");
 
-    }
+	}
 
 }

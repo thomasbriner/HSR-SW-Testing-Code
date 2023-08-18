@@ -60,10 +60,15 @@ public class HelloWorldHsrWebPageExample implements Constants {
 
     @Test
     public void lookupPhoneNumber() {
-        // TODO: Implement this
         // 1. Jump to "Kontakt"-Page
+		driver.get("https://www.ost.ch/de/");
+		WebElement appLink = driver.findElement(By.partialLinkText("Kontakt"));
+		appLink.click();
+
         // 2. Assert that the page title contains "Kontakt"
+		Assertions.assertThat(driver.getTitle()).contains("Kontakt");
+
         // 3. Assert that the phone number '+41 58 257 41 11' is found on the page
-        org.junit.jupiter.api.Assertions.fail("Implement Testcase");
+		Assertions.assertThat(driver.getPageSource()).contains("+41 58 257 41 11");
     }
 }

@@ -36,62 +36,62 @@ import java.util.concurrent.TimeUnit;
 @ExtendWith(ScreenshotOnFailureExtension.class)
 public class WeekendDiscountSmokeTests implements Constants {
 
-    private static final Log LOG = LogFactory
-            .getLog(WeekendDiscountSmokeTests.class);
+	private static final Log LOG = LogFactory
+			.getLog(WeekendDiscountSmokeTests.class);
 
-    private WebDriver driver;
+	private WebDriver driver;
 
-    @BeforeEach
-    public void setup() {
+	@BeforeEach
+	public void setup() {
 
-        System.setProperty("webdriver.chrome.driver", getChromeDriverPath());
-        ChromeOptions options = new ChromeOptions();
-        options.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
-        driver = new ChromeDriver(options);
+		System.setProperty("webdriver.chrome.driver", getChromeDriverPath());
+		ChromeOptions options = new ChromeOptions();
+		options.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
+		driver = new ChromeDriver(options);
 
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        WebDriverKeeper.getInstance().setDriver(driver);
-    }
+		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+		WebDriverKeeper.getInstance().setDriver(driver);
+	}
 
-    @AfterEach
-    public void tearDown() {
-        driver.close();
-    }
+	@AfterEach
+	public void tearDown() {
+		driver.close();
+	}
 
-    @Test
-    public void testLoadHomePage() {
+	@Test
+	public void testLoadHomePage() {
 
-        // get the home page
-        HomePage homePage = HomePage.navigateTo(driver);
+		// get the home page
+		HomePage homePage = HomePage.navigateTo(driver);
 
-        // and make sure some sauces are show
-        Assertions.assertTrue(
-                homePage.getNofProductsShown() > 0, "Some products should be shown");
-    }
+		// and make sure some sauces are show
+		Assertions.assertTrue(
+				homePage.getNofProductsShown() > 0, "Some products should be shown");
+	}
 
-    @Test
-    public void testAddItemToCart() {
+	@Test
+	public void testAddItemToCart() {
 
-        // get the home page
-        HomePage homePage = HomePage.navigateTo(driver);
+		// get the home page
+		HomePage homePage = HomePage.navigateTo(driver);
 
-        // make sure that cart is empty at the beginning
-        MatcherAssert.assertThat(homePage.getNofObjectsInCart(), Matchers.is(0));
+		// make sure that cart is empty at the beginning
+		MatcherAssert.assertThat(homePage.getNofObjectsInCart(), Matchers.is(0));
 
-        // go to the sauces
-        HotSaucesPage hotSaucesPage = homePage.jumpToHotSauces();
+		// go to the sauces
+		HotSaucesPage hotSaucesPage = homePage.jumpToHotSauces();
 
-        // and pick one
-        SauceDetailPage saucePage = hotSaucesPage.sauceDayOfTheDeadHabaneroDetails();
+		// and pick one
+		SauceDetailPage saucePage = hotSaucesPage.sauceDayOfTheDeadHabaneroDetails();
 
-        // now buy this one
-        saucePage.buySauce();
+		// now buy this one
+		saucePage.buySauce();
 
-        // jump back to the home page
-        homePage = HomePage.navigateTo(driver);
+		// jump back to the home page
+		homePage = HomePage.navigateTo(driver);
 
-        // and check that there is 1 product in the cart.
-        MatcherAssert.assertThat(homePage.getNofObjectsInCart(), Matchers.is(1));
-    }
+		// and check that there is 1 product in the cart.
+		MatcherAssert.assertThat(homePage.getNofObjectsInCart(), Matchers.is(1));
+	}
 
 }

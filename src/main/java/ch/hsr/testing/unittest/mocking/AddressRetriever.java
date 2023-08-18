@@ -11,12 +11,14 @@ import java.util.Formatter;
 import java.util.Locale;
 
 public class AddressRetriever {
-    private final HttpService httpService = new HttpService();
+    private final HttpService httpService;
     private final String apiKey;
 
-    public AddressRetriever(String apiKey) {
+    public AddressRetriever(String apiKey, HttpService httpService) {
         this.apiKey = apiKey;
+        this.httpService = httpService;
     }
+
 
     public Address retrieve(double latitude, double longitude) throws AddressRetrieverException {
         String params = new Formatter(Locale.US).format("location=%.6f%s%.6f", latitude, "%2C",longitude).toString();

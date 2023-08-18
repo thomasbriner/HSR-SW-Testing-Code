@@ -1,0 +1,61 @@
+Index: src/test/java/ch/hsr/testing/unittest/assertions/lotr/DivisibleByTwoMatcher.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/ch/hsr/testing/unittest/assertions/lotr/DivisibleByTwoMatcher.java b/src/test/java/ch/hsr/testing/unittest/assertions/lotr/DivisibleByTwoMatcher.java
+new file mode 100644
+--- /dev/null	(date 1631716757239)
++++ b/src/test/java/ch/hsr/testing/unittest/assertions/lotr/DivisibleByTwoMatcher.java	(date 1631716757239)
+@@ -0,0 +1,17 @@
++package ch.hsr.testing.unittest.assertions.lotr;
++
++import org.hamcrest.Description;
++import org.hamcrest.TypeSafeDiagnosingMatcher;
++
++public class DivisibleByTwoMatcher extends TypeSafeDiagnosingMatcher<Integer> {
++    @Override
++    protected boolean matchesSafely(Integer item, Description mismatchDescription) {
++        return item % 2 == 0;
++    }
++
++    @Override
++    public void describeTo(Description description) {
++        description.appendText("is divisible by 2");
++
++    }
++}
+Index: src/main/java/ch/hsr/testing/unittest/HelloWorld.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ch/hsr/testing/unittest/HelloWorld.java b/src/main/java/ch/hsr/testing/unittest/HelloWorld.java
+new file mode 100644
+--- /dev/null	(date 1631685748969)
++++ b/src/main/java/ch/hsr/testing/unittest/HelloWorld.java	(date 1631685748969)
+@@ -0,0 +1,8 @@
++package ch.hsr.testing.unittest;
++
++public class HelloWorld {
++
++    public boolean alwaysTrue(){
++        return true;
++    }
++}
+Index: run-SUT-locally.sh
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#!/bin/bash\n\nVERSION=1.0.3\n\ndocker pull sadsamba/heatclinic:$VERSION\ndocker run -it --rm -p 8080:8080 -p 8443:8443 -p 9001:9001 sadsamba/heatclinic:$VERSION\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/run-SUT-locally.sh b/run-SUT-locally.sh
+--- a/run-SUT-locally.sh	(revision eeb236b49834257451f78ac9de28e555140c974f)
++++ b/run-SUT-locally.sh	(date 1629636724468)
+@@ -3,4 +3,4 @@
+ VERSION=1.0.3
+ 
+ docker pull sadsamba/heatclinic:$VERSION
+-docker run -it --rm -p 8080:8080 -p 8443:8443 -p 9001:9001 sadsamba/heatclinic:$VERSION
++docker run -it -p 8080:8080 -p 8443:8443 -p 9001:9001 sadsamba/heatclinic:$VERSION
