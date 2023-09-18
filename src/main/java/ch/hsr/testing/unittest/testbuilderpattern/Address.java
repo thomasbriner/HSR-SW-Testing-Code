@@ -60,7 +60,7 @@ public class Address {
     public static Address fromJSONLocation(JSONObject location) {
         String houseNumberAndstreet = (String) location.get("street");
         String houseNumber = houseNumberAndstreet.substring(0, houseNumberAndstreet.indexOf(" "));
-        String street = houseNumberAndstreet.substring(houseNumberAndstreet.indexOf(" "));
+        String street = houseNumberAndstreet.substring(houseNumberAndstreet.indexOf(" ")).trim();
         String city = (String) location.get("adminArea5");
         String state = (String) location.get("adminArea1");
         String zip = (String) location.get("postalCode");
