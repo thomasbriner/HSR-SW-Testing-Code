@@ -5,11 +5,22 @@
  * This is a general purpose Gradle build.
  * Learn how to create Gradle builds at https://guides.gradle.org/creating-new-gradle-builds
  */
+buildscript {
+    repositories {
+        mavenCentral()
+        //Needed only for SNAPSHOT versions
+        //maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    }
+    dependencies {
+        classpath 'info.solidsoft.gradle.pitest:gradle-pitest-plugin:1.9.0'
+    }
+}
 
 
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
+apply plugin: 'info.solidsoft.pitest'
 
 repositories {
     mavenCentral()
@@ -20,6 +31,16 @@ project.ext {
     junitPlatformVersion = '1.5.0'
     seleniumVersion = '3.12.0'
     seleniumHtmlUnitVersion = '2.29.0'
+}
+
+
+pitest {
+    targetClasses = ['ch.hsr.testing.unittest.parametrized.*']  //by default "${project.group}.*"
+    junit5PluginVersion = '1.1.1'
+    pitestVersion = '1.9.0' //not needed when a default PIT version should be used
+    threads = 4
+    outputFormats = ['XML', 'HTML']
+    timestampedReports = false
 }
 
 test {
