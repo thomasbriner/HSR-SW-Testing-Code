@@ -1,7 +1,6 @@
 package ch.hsr.testing.unittest.tdd.romannumbers;
 
 
-import ch.hsr.testing.unittest.tdd.romannumbers.RomanNumberConverter;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -36,26 +35,3 @@ class RomanNumbersTest {
                 Arguments.of(19, "XIX"));
     }
 }
-
-
-
-//
-//
-//
-//    @Test
-//    void convertToRomanNumber() {
-//        Assertions.assertThat(RomanNumberConverter.convert(1)).isEqualTo("I");
-//        Assertions.assertThat(RomanNumberConverter.convert(2)).isEqualTo("II");
-//        Assertions.assertThat(RomanNumberConverter.convert(3)).isEqualTo("III");
-//        Assertions.assertThat(RomanNumberConverter.convert(4)).isEqualTo("IV");
-//        Assertions.assertThat(RomanNumberConverter.convert(5)).isEqualTo("V");
-//        Assertions.assertThat(RomanNumberConverter.convert(6)).isEqualTo("VI");
-//        Assertions.assertThat(RomanNumberConverter.convert(7)).isEqualTo("VII");
-//        Assertions.assertThat(RomanNumberConverter.convert(8)).isEqualTo("VIII");
-//        Assertions.assertThat(RomanNumberConverter.convert(9)).isEqualTo("IX");
-//        Assertions.assertThat(RomanNumberConverter.convert(10)).isEqualTo("X");
-//    }
-//
-//
-
-
