@@ -18,17 +18,18 @@ public class AddressRetriever {
         this.apiKey = apiKey;
     }
 
-    public Address retrieve(double latitude, double longitude) throws AddressRetrieverException {
-        String params = new Formatter(Locale.US).format("location=%.6f%s%.6f", latitude, "%2C",longitude).toString();
-        String url = "https://www.mapquestapi.com/geocoding/v1/reverse?key=" + apiKey
-                + "&outFormat=json&thumbMaps=false&format=json&" + params;
+    public Address retrieveAddress(double coordX, double coordY) throws AddressRetrieverException {
+        String url = "https://api3.geo.admin.ch/rest/services/api/MapServer/identify?" +
+                "mapExtent=0,0,100,100&imageDisplay=100,100,100&tolerance=1&geometryType=esriGeometryPoint&geometry="
+                + coordX + ","
+                + coordY + "&layers=all:ch.bfs.gebaeude_wohnungs_register&returnGeometry=false&apiKey"
+                + this.apiKey;
         try {
             String response = httpService.get(url);
 
             JSONObject obj = (JSONObject) new JSONParser().parse(response);
-            JSONObject location =  (JSONObject) ((JSONArray)((JSONObject)((JSONArray) obj.get("results")).get(0)).get("locations")).get(0);
+            JSONObject location = (JSONObject) (((JSONObject) ((JSONArray) obj.get("results")).get(0)).get("attributes"));
             return Address.fromJSONLocation(location);
-
         } catch (IOException e) {
             throw new AddressRetrieverException("Received Exception from HttpService", e);
         } catch (Exception e) {
@@ -36,4 +37,5 @@ public class AddressRetriever {
         }
 
     }
+
 }
