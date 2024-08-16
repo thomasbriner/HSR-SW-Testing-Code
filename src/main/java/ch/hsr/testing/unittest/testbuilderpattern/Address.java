@@ -8,6 +8,7 @@
  ***/
 package ch.hsr.testing.unittest.testbuilderpattern;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.Objects;
@@ -56,14 +57,14 @@ public class Address {
     public boolean isApproved() {
         return approved;
     }
-    
+
+
     public static Address fromJSONLocation(JSONObject location) {
-        String houseNumberAndstreet = (String) location.get("street");
-        String houseNumber = houseNumberAndstreet.substring(0, houseNumberAndstreet.indexOf(" "));
-        String street = houseNumberAndstreet.substring(houseNumberAndstreet.indexOf(" "));
-        String city = (String) location.get("adminArea5");
-        String state = (String) location.get("adminArea1");
-        String zip = (String) location.get("postalCode");
+        String street = (String) ((JSONArray) location.get("strname")).get(0);
+        String houseNumber = (String) location.get("deinr");
+        String city = (String) location.get("dplzname");
+        String state = (String) location.get("gdekt");
+        String zip = String.valueOf(location.get("dplz4"));
         return new Address(houseNumber, street, city, state, zip);
     }
 
