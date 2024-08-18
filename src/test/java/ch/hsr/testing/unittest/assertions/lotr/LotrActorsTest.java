@@ -50,7 +50,7 @@ class LotrActorsTest {
         org.hamcrest.MatcherAssert.assertThat(frodo.getAge(), org.hamcrest.Matchers.equalTo(33));
     }
 
-    // Overview: http://joel-costigliola.github.io/assertj/
+    // Overview: https://assertj.github.io/doc/
     @Test
     void useAssertjMatchers() {
 
