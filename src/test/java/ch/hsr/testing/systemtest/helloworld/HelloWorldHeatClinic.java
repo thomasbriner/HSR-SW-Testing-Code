@@ -8,8 +8,7 @@
 package ch.hsr.testing.systemtest.helloworld;
 
 import ch.hsr.testing.systemtest.weekenddiscount.Constants;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +33,6 @@ public class HelloWorldHeatClinic implements Constants {
 
 	@BeforeEach
 	public void setup() {
-
 		System.setProperty("webdriver.chrome.driver", getChromeDriverPath());
 		ChromeOptions options = new ChromeOptions();
 		options.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
@@ -55,23 +53,24 @@ public class HelloWorldHeatClinic implements Constants {
 
 
 		// check if the home page is loaded
-		MatcherAssert.assertThat("Should be home page of heat clinic", driver.getPageSource(),
-				Matchers.containsString("Hot Sauces"));
+		Assertions.assertThat(driver.getPageSource()).contains("Heat Clinic");
+
 
 		// now go to "Hot Sauces"
 		WebElement navigation = driver.findElement(By.xpath("//div[@id='left-nav']"));
 		navigation.findElement(By.partialLinkText("HOT")).click();
-		MatcherAssert.assertThat(driver.getTitle(), Matchers.containsString("Hot Sauces"));
+		Assertions.assertThat(driver.getTitle()).contains("Hot Sauces");
+
 
 		// jump to the green ghost sauce detail page
-		WebElement sauce = driver.findElement(By.xpath("//a[div/img[contains(@src,'Green-Ghost')]]"));
-		System.out.println(sauce.getText());
-		sauce.click();
-		MatcherAssert.assertThat(driver.getTitle(), Matchers.containsString("Green Ghost"));
+		WebElement greenGhostLink = driver.findElement(By.xpath("//a[@href='/hot-sauces/green_ghost']"));
+		greenGhostLink.click();
+
 
 		// and check the price of the green ghost sauce: should be $9.99
 		String price = driver.findElement(By.className("price-new")).getText();
-		MatcherAssert.assertThat(price, Matchers.is("$9.99"));
+		Assertions.assertThat(price).isEqualTo("$9.99");
+
 
 	}
 

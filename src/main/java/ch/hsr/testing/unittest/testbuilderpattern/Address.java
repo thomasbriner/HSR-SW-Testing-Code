@@ -58,7 +58,6 @@ public class Address {
         return approved;
     }
 
-
     public static Address fromJSONLocation(JSONObject location) {
         String street = (String) ((JSONArray) location.get("strname")).get(0);
         String houseNumber = (String) location.get("deinr");
