@@ -22,4 +22,13 @@ public class TolkienCharacter {
     public int getAge() {
         return age;
     }
+
+    @Override
+    public String toString() {
+        return "TolkienCharacter{"
+                + " name='" + name + '\''
+                + ", race=" + race
+                + ", age=" + age
+                + '}';
+    }
 }
