@@ -1,15 +1,13 @@
 package ch.hsr.testing.unittest.assertions.lotr;
 
 
+import org.assertj.core.api.Assertions;
 import org.hamcrest.*;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static ch.hsr.testing.unittest.assertions.lotr.LotrActorsTest.ContainsOnlySpecifiedRacesMatcher.containsOnlySpecifiedRaces;
@@ -17,7 +15,7 @@ import static ch.hsr.testing.unittest.assertions.lotr.Race.*;
 
 class LotrActorsTest {
 
-    private LotrActors lotrActors = new LotrActors();
+    private final LotrActors lotrActors = new LotrActors();
     private TolkienCharacter frodo;
     private TolkienCharacter sauron;
 
@@ -75,6 +73,49 @@ class LotrActorsTest {
 
     }
 
+
+    @Test
+    void exampleSolution_3_3_checkBoromirsRace() {
+        TolkienCharacter boromir = lotrActors.getCharactersByName("Boromir").get();
+        Assertions.assertThat(boromir.getRace()).isEqualTo(MAN);
+    }
+
+    @Test
+    void exampleSolution_3_3_checkLegolasAge() {
+        TolkienCharacter legolas = lotrActors.getCharactersByName("Legolas").get();
+        Assertions.assertThat(legolas.getAge()).isGreaterThan(900);
+    }
+
+    @Test
+    void exampleSolution_3_3_numberOfPersonsInFellowship() {
+        Assertions.assertThat(lotrActors.getFellowshipOfTheRing()).hasSize(9);
+    }
+
+    @Test
+    void exampleSolution_3_3_noEvilInFellowship() {
+        Assertions.assertThat(lotrActors.getFellowshipOfTheRing().stream()
+                        .map(TolkienCharacter::getRace)
+                        .collect(Collectors.toSet()))
+                .doesNotContain(EVIL);
+    }
+
+    @Test
+    void exampleSolution_3_3_youngestPerson() {
+        Assertions.assertThat(lotrActors.getFellowshipOfTheRing().stream()
+                        .min(Comparator.comparingInt(TolkienCharacter::getAge))
+                        .get()
+                        .getName())
+                .isEqualTo("Pippin");
+    }
+
+    @Test
+    void exampleSolution_3_3_fellowshipNotSortedByAge() {
+        List<TolkienCharacter> sorted = lotrActors.getFellowshipOfTheRing().stream().sorted(Comparator.comparingInt(TolkienCharacter::getAge)).collect(Collectors.toUnmodifiableList());
+
+        Assertions.assertThat(lotrActors.getFellowshipOfTheRing())
+                .isNotEqualTo(sorted);
+    }
+
     public static class ContainsOnlySpecifiedRacesMatcher
             extends TypeSafeDiagnosingMatcher<List<TolkienCharacter>> {
 
@@ -94,9 +135,9 @@ class LotrActorsTest {
 
         private Set<Race> getUndesiredRaces(List<TolkienCharacter> characters) {
             return characters.stream()
-                            .filter(character -> !races.contains(character.getRace()))
-                            .map(TolkienCharacter::getRace)
-                            .collect(Collectors.toSet());
+                    .filter(character -> !races.contains(character.getRace()))
+                    .map(TolkienCharacter::getRace)
+                    .collect(Collectors.toSet());
         }
 
         @Override
@@ -108,6 +149,7 @@ class LotrActorsTest {
         static Matcher<List<TolkienCharacter>> containsOnlySpecifiedRaces(List<Race> races) {
             return new ContainsOnlySpecifiedRacesMatcher(races);
         }
+
 
     }
 }
