@@ -29,9 +29,15 @@ public class WeekendDiscountTimeSlotValidator {
      * Checks whether a date is within the nth weekend (Saturday 00:00 to Sunday
      * 23:59) of the month. The number n has to be given to the instance beforehand
      * using the initializeWithWeekendNumber Method.
+     * <br>
+     * The n-th weekend in a month starts with the n-th Saturday within this month.
+     * If the first of a month is a Sunday, then the first weekend is on the 7th and 8th.
+     * <br>
+     * If the Saturday of the n-th weekend is on the last day of the month,
+     * the following day, the Sunday, is no longer authorized for the discount.
      *
      * @param now the point in time for which the decision should be made whether weekend discount is applied or not
-     * @return
+     * @return whether weekend discount should be available for this timestamp
      * @throws IllegalWeekendNumberException
      *             if weekend number is not set
      *             or if the weekend number is higher than the number of weekends in this month
